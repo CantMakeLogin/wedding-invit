@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Приглашение на свадьбу</title>
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --card: #ffffff;
+      --text: #333;
+      --accent: #c59d5f;
+    }
+    body.dark {
+      --bg: #111;
+      --card: #1c1c1c;
+      --text: #eee;
+      --accent: #d4af37;
+    }
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.5s;
+    }
+    .card {
+      background: var(--card);
+      padding: 40px;
+      border-radius: 20px;
+      width: 340px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.1);
+      animation: fadeUp 1s ease;
+    }
+    h1 { margin-bottom: 10px; font-weight: normal; }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    label { display: block; margin: 8px 0; font-size: 16px; cursor: pointer; }
+    input[type="radio"] { margin-right: 8px; }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+    }
+    .secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .controls { display: flex; gap: 10px; margin-top: 15px; justify-content: center; }
+    #status { margin-top: 15px; font-weight: bold; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Форма -->
+<form
+  class="card"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSccODtGesRZ3y7xKMyRZOgsM7ydOg141pDamm0DrTNnnmtFyw/formResponse"
+  method="POST"
+  target="hidden_iframe"
+  onsubmit="submitted()"
+>
+  <h1>Приглашение</h1>
+  <p>Будем рады видеть вас 💍</p>
+
+  <input type="text" name="entry.1517386619" placeholder="Ваше имя" required>
+
+  <label>
+    <input type="radio" name="entry.1950913670" value="Да" required> Приду
+  </label>
+  <label>
+    <input type="radio" name="entry.1950913670" value="Нет"> Не смогу
+  </label>
+
+  <button type="submit">Отправить</button>
+
+  <div class="controls">
+    <button type="button" class="secondary" onclick="toggleTheme()">🎭 Тема</button>
+    <button type="button" class="secondary" onclick="toggleMusic()">🎵 Музыка</button>
+  </div>
+
+  <p id="status"></p>
+</form>
+
+<!-- Скрытый iframe для отправки -->
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+<!-- Музыка -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Сообщение после отправки
+function submitted() {
+  document.getElementById("status").innerText = "Спасибо за ответ ❤️";
+}
+
+// Переключение темы
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
+
+// Музыка
+let playing = false;
+const music = document.getElementById("music");
+function toggleMusic() {
+  if (!playing) music.play();
+  else music.pause();
+  playing = !playing;
+  playing = !playing;
+}
+</script>
+
+</body>
+</html>
