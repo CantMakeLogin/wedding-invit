@@ -47,7 +47,6 @@
       transform: translateY(0);
     }
 
-    /* HERO */
     .hero {
       background: url("hero.jpg") center / cover no-repeat;
       position: relative;
@@ -66,17 +65,9 @@
       z-index: 1;
     }
 
-    .hero h1 {
-      font-size: 48px;
-      font-weight: normal;
-    }
+    .hero h1 { font-size: 48px; }
+    .hero p { font-size: 20px; letter-spacing: 2px; }
 
-    .hero p {
-      font-size: 20px;
-      letter-spacing: 2px;
-    }
-
-    /* CARD */
     .card {
       background: var(--card);
       padding: 40px;
@@ -91,18 +82,9 @@
       margin: 15px 0;
       border-radius: 10px;
       border: 1px solid #ccc;
-      font-size: 16px;
     }
 
-    label {
-      display: block;
-      margin: 10px 0;
-      cursor: pointer;
-    }
-
-    input[type="radio"] {
-      margin-right: 8px;
-    }
+    label { display: block; margin: 10px 0; }
 
     button {
       width: 100%;
@@ -122,12 +104,8 @@
       border: 1px solid var(--accent);
     }
 
-    #status {
-      margin-top: 12px;
-      font-weight: bold;
-    }
+    #status { margin-top: 12px; font-weight: bold; }
 
-    /* TOP CONTROLS */
     .top-controls {
       position: fixed;
       top: 15px;
@@ -146,60 +124,99 @@
   <button class="secondary" onclick="toggleTheme()">🎭</button>
 </div>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <h1 data-ru="Наша свадьба" data-en="Our Wedding"></h1>
-    <p data-ru="7 июня 2026" data-en="June 7, 2026"></p>
+    <h1
+      data-ru="Наша свадьба"
+      data-en="Our Wedding"
+      data-kk="Біздің тойымыз">
+    </h1>
+    <p
+      data-ru="7 июня 2026"
+      data-en="June 7, 2026"
+      data-kk="7 маусым 2026">
+    </p>
   </div>
 </section>
 
+<!-- INVITATION -->
 <section>
   <div class="card">
-    <h1 data-ru="Приглашение" data-en="Invitation"></h1>
-    <p data-ru="Будем рады разделить этот день вместе с вами 💍"
-       data-en="We would be honored to celebrate this day with you 💍"></p>
+    <h1
+      data-ru="Приглашение"
+      data-en="Invitation"
+      data-kk="Шақыру">
+    </h1>
+    <p
+      data-ru="Будем рады разделить этот день вместе с вами 💍"
+      data-en="We would be honored to celebrate this day with you 💍"
+      data-kk="Осы ерекше күнді бізбен бірге бөлісуге шақырамыз 💍">
+    </p>
   </div>
 </section>
 
+<!-- VENUE -->
 <section>
   <div class="card">
-    <h1 data-ru="Место и время" data-en="Venue & Time"></h1>
-    <p data-ru="🕒 17:00" data-en="🕒 5:00 PM"></p>
-    <p data-ru="📍 Талгарская трасса ХАН СУЛТАН, Алматы"
-       data-en="📍 Talgar highway KHAN SULTAN, Almaty"></p>
-    <button onclick="openMap()" data-ru="Открыть на карте" data-en="Open in Maps"></button>
+    <h1
+      data-ru="Место и время"
+      data-en="Venue & Time"
+      data-kk="Өтетін орны мен уақыты">
+    </h1>
+    <p data-ru="🕒 17:00" data-en="🕒 5:00 PM" data-kk="🕒 17:00"></p>
+    <p
+      data-ru="📍 Талгарская трасса ХАН СУЛТАН, Алматы"
+      data-en="📍 Talgar highway KHAN SULTAN, Almaty"
+      data-kk="📍 Талғар тас жолы ХАН СУЛТАН, Алматы">
+    </p>
+    <button onclick="openMap()"
+      data-ru="Открыть на карте"
+      data-en="Open in Maps"
+      data-kk="Картадан ашу">
+    </button>
   </div>
 </section>
 
+<!-- RSVP -->
 <section>
   <form
     class="card"
     action="https://docs.google.com/forms/d/e/1FAIpQLSccODtGesRZ3y7xKMyRZOgsM7ydOg141pDamm0DrTNnnmtFyw/formResponse"
     method="POST"
     target="hidden_iframe"
-    onsubmit="submitted()"
-  >
-    <h1 data-ru="Вы придёте?" data-en="Will you attend?"></h1>
+    onsubmit="submitted()">
+
+    <h1
+      data-ru="Вы придёте?"
+      data-en="Will you attend?"
+      data-kk="Тойға келесіз бе?">
+    </h1>
 
     <input type="text"
       name="entry.1517386619"
       data-ru-placeholder="Ваше имя"
       data-en-placeholder="Your name"
+      data-kk-placeholder="Атыңыз"
       required>
 
     <label>
       <input type="radio" name="entry.1950913670" value="Да" required>
-      <span data-ru="Приду" data-en="I will come"></span>
+      <span data-ru="Приду" data-en="I will come" data-kk="Келемін"></span>
     </label>
 
     <label>
       <input type="radio" name="entry.1950913670" value="Нет">
-      <span data-ru="Не смогу" data-en="Can't come"></span>
+      <span data-ru="Не смогу" data-en="Can't come" data-kk="Келе алмаймын"></span>
     </label>
 
-    <button type="submit" data-ru="Отправить" data-en="Submit"></button>
-    <button type="button" class="secondary" onclick="toggleMusic()">🎵</button>
+    <button type="submit"
+      data-ru="Отправить"
+      data-en="Submit"
+      data-kk="Жіберу">
+    </button>
 
+    <button type="button" class="secondary" onclick="toggleMusic()">🎵</button>
     <p id="status"></p>
   </form>
 </section>
@@ -211,35 +228,41 @@
 </audio>
 
 <script>
-/* ===== SCROLL ANIMATION ===== */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
-}, { threshold: 0.2 });
-
+/* ===== SCROLL ===== */
+const observer = new IntersectionObserver(e =>
+  e.forEach(x => x.isIntersecting && x.target.classList.add("show")),
+  { threshold: 0.2 }
+);
 document.querySelectorAll("section").forEach(s => observer.observe(s));
 
 /* ===== LANGUAGE ===== */
-let lang = "ru";
+const langs = ["ru", "en", "kk"];
+let langIndex = 0;
 
 function applyLang() {
+  const lang = langs[langIndex];
   document.querySelectorAll("[data-ru]").forEach(el => {
     el.innerText = el.dataset[lang];
   });
-
   document.querySelectorAll("[data-ru-placeholder]").forEach(el => {
     el.placeholder = el.dataset[lang + "Placeholder"];
   });
 }
 
 function toggleLang() {
-  lang = lang === "ru" ? "en" : "ru";
+  langIndex = (langIndex + 1) % langs.length;
   applyLang();
 }
 
 /* ===== FORM ===== */
 function submitted() {
+  const messages = {
+    ru: "Спасибо за ответ ❤️",
+    en: "Thank you for your response ❤️",
+    kk: "Жауабыңызға рахмет ❤️"
+  };
   document.getElementById("status").innerText =
-    lang === "ru" ? "Спасибо за ответ ❤️" : "Thank you for your response ❤️";
+    messages[langs[langIndex]];
 }
 
 /* ===== THEME ===== */
@@ -247,56 +270,33 @@ function toggleTheme() {
   document.body.classList.toggle("dark");
 }
 
-/* ===== MUSIC ===== */
 /* ===== SAFE AUTOPLAY MUSIC ===== */
 const music = document.getElementById("music");
-let playing = false;
-let userInteracted = false;
+let playing = false, interacted = false;
 
-// Try autoplay silently
 function tryAutoplay() {
   music.volume = 0.5;
-  const playPromise = music.play();
-
-  if (playPromise !== undefined) {
-    playPromise
-      .then(() => {
-        playing = true;
-      })
-      .catch(() => {
-        // Autoplay blocked — wait for interaction
-      });
-  }
+  music.play().then(() => playing = true).catch(() => {});
 }
 
-// Start music after first interaction
 function enableMusic() {
-  if (userInteracted) return;
-  userInteracted = true;
+  if (interacted) return;
+  interacted = true;
   music.play();
   playing = true;
-
-  document.removeEventListener("click", enableMusic);
-  document.removeEventListener("scroll", enableMusic);
-  document.removeEventListener("touchstart", enableMusic);
+  ["click","scroll","touchstart"].forEach(e =>
+    document.removeEventListener(e, enableMusic)
+  );
 }
 
-// Manual toggle button
 function toggleMusic() {
-  if (playing) {
-    music.pause();
-  } else {
-    music.play();
-  }
+  playing ? music.pause() : music.play();
   playing = !playing;
 }
 
-// Listen for user interaction
-document.addEventListener("click", enableMusic);
-document.addEventListener("scroll", enableMusic);
-document.addEventListener("touchstart", enableMusic);
-
-// Attempt autoplay on load
+["click","scroll","touchstart"].forEach(e =>
+  document.addEventListener(e, enableMusic)
+);
 window.addEventListener("load", tryAutoplay);
 
 /* ===== MAP ===== */
