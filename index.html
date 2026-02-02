@@ -41,38 +41,30 @@
       opacity: 0;
       transform: translateY(40px);
       transition: 0.8s ease;
-    }
-
-    section.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* HERO */
-    .hero {
-      background: url("hero.jpg") center / cover no-repeat;
+      background-size: cover;
+      background-position: center;
       position: relative;
       color: white;
     }
 
-    .hero::after {
+    section.show { opacity: 1; transform: translateY(0); }
+
+    section::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.45);
+      background: rgba(0,0,0,0.35);
     }
 
-    .hero-content { position: relative; z-index: 1; }
-    .hero h1 { font-size: 48px; }
-    .hero p { font-size: 20px; letter-spacing: 2px; }
-
-    /* CARD */
     .card {
+      position: relative;
+      z-index: 1;
       background: var(--card);
       padding: 40px;
       border-radius: 20px;
       width: 340px;
       box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      color: var(--text);
     }
 
     input[type="text"] {
@@ -147,18 +139,15 @@
     }
     .gallery-dots span.active { background: var(--accent); }
 
-    /* ===== MOBILE OPTIMIZATION ===== */
+    /* ===== MOBILE ===== */
     @media (max-width: 768px) {
       section { padding: 40px 16px; }
-      .hero h1 { font-size: 34px; line-height: 1.2; }
-      .hero p { font-size: 16px; letter-spacing: 1px; }
       .card { width: 100%; max-width: 360px; padding: 28px 22px; }
       .top-controls { top: 10px; right: 10px; gap: 8px; }
       .top-controls button { font-size: 14px; padding: 8px 12px; }
     }
 
     @media (max-width: 380px) {
-      .hero h1 { font-size: 30px; }
       .card { padding: 24px 18px; }
     }
   </style>
@@ -172,15 +161,15 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
+<section style="background-image:url('hero.jpg');">
+  <div class="card">
     <h1 data-ru="Наша свадьба" data-en="Our Wedding" data-kk="Біздің тойымыз"></h1>
     <p data-ru="7 июня 2026" data-en="June 7, 2026" data-kk="7 маусым 2026"></p>
   </div>
 </section>
 
 <!-- INVITATION -->
-<section>
+<section style="background-image:url('photo_invitation.jpg');">
   <div class="card">
     <h1 data-ru="Приглашение" data-en="Invitation" data-kk="Шақыру"></h1>
     <p data-ru="Будем рады разделить этот день вместе с вами 💍"
@@ -190,7 +179,7 @@
 </section>
 
 <!-- COUNTDOWN -->
-<section>
+<section style="background-image:url('photo_countdown.jpg');">
   <div class="card">
     <h1 data-ru="До свадьбы осталось" data-en="Time until wedding" data-kk="Тойға дейін"></h1>
     <div id="countdown" class="countdown"></div>
@@ -198,7 +187,7 @@
 </section>
 
 <!-- VENUE -->
-<section>
+<section style="background-image:url('photo_venue.jpg');">
   <div class="card">
     <h1 data-ru="Место и время" data-en="Venue & Time" data-kk="Өтетін орны мен уақыты"></h1>
     <p data-ru="🕒 17:00" data-en="🕒 5:00 PM" data-kk="🕒 17:00"></p>
@@ -213,7 +202,7 @@
 </section>
 
 <!-- PHOTO GALLERY -->
-<section>
+<section style="background-image:url('photo_gallery_bg.jpg');">
   <div class="card">
     <h1 data-ru="Наши моменты" data-en="Our moments" data-kk="Біздің сәттер"></h1>
     <div class="gallery">
@@ -221,6 +210,8 @@
         <img src="photo1.jpg" alt="Photo 1">
         <img src="photo2.jpg" alt="Photo 2">
         <img src="photo3.jpg" alt="Photo 3">
+        <img src="photo4.jpg" alt="Photo 4">
+        <img src="photo5.jpg" alt="Photo 5">
       </div>
       <div class="gallery-dots" id="dots"></div>
     </div>
@@ -228,7 +219,7 @@
 </section>
 
 <!-- RSVP -->
-<section>
+<section style="background-image:url('photo_rsvp.jpg');">
   <form class="card"
     action="https://docs.google.com/forms/d/e/1FAIpQLSccODtGesRZ3y7xKMyRZOgsM7ydOg141pDamm0DrTNnnmtFyw/formResponse"
     method="POST" target="hidden_iframe" onsubmit="submitted()">
@@ -254,9 +245,11 @@
 
     <button type="submit" data-ru="Отправить" data-en="Submit" data-kk="Жіберу"></button>
     <button type="button" class="secondary" onclick="toggleMusic()">🎵</button>
+
     <p id="status"></p>
   </form>
 </section>
+
 
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 <audio id="music" loop>
@@ -283,16 +276,32 @@ function applyLang() {
   );
 }
 
-function toggleLang() {
-  langIndex = (langIndex + 1) % langs.length;
-  applyLang();
-}
+function toggleLang() { langIndex = (langIndex + 1) % langs.length; applyLang(); }
 
 /* ===== FORM ===== */
 function submitted() {
-  const messages = { ru:"Спасибо за ответ ❤️", en:"Thank you for your response ❤️", kk:"Жауабыңызға рахмет ❤️"};
-  document.getElementById("status").innerText = messages[langs[langIndex]];
+  const rsvpForm = document.querySelector('form.card');
+  const messages = { 
+    ru: "Спасибо за ответ ❤️", 
+    en: "Thank you for your response ❤️", 
+    kk: "Жауабыңызға рахмет ❤️"
+  };
+  
+  // Remove/hide the form after submission
+  rsvpForm.style.display = "none";
+
+  // Optionally show a thank you message
+  const thankYou = document.createElement("div");
+  thankYou.style.marginTop = "20px";
+  thankYou.style.fontSize = "18px";
+  thankYou.style.fontWeight = "bold";
+  thankYou.style.color = "var(--accent)";
+  thankYou.innerText = messages[langs[langIndex]];
+
+  // Append to the same section
+  rsvpForm.parentElement.appendChild(thankYou);
 }
+
 
 /* ===== THEME ===== */
 function toggleTheme() { document.body.classList.toggle("dark"); }
@@ -301,10 +310,7 @@ function toggleTheme() { document.body.classList.toggle("dark"); }
 const music = document.getElementById("music");
 let playing=false, interacted=false;
 
-function tryAutoplay() {
-  music.volume=0.5;
-  music.play().then(()=>playing=true).catch(()=>{});
-}
+function tryAutoplay() { music.volume=0.5; music.play().then(()=>playing=true).catch(()=>{}); }
 
 function enableMusic() {
   if(interacted) return;
@@ -314,18 +320,13 @@ function enableMusic() {
   ["click","scroll","touchstart"].forEach(e=>document.removeEventListener(e, enableMusic));
 }
 
-function toggleMusic() {
-  playing ? music.pause() : music.play();
-  playing = !playing;
-}
+function toggleMusic() { playing ? music.pause() : music.play(); playing=!playing; }
 
 ["click","scroll","touchstart"].forEach(e=>document.addEventListener(e, enableMusic));
 window.addEventListener("load", tryAutoplay);
 
 /* ===== MAP ===== */
-function openMap() { 
-  window.open("https://go.2gis.com/Uv7Ea","_blank"); 
-}
+function openMap() { window.open("https://go.2gis.com/Uv7Ea","_blank"); }
 
 /* ===== COUNTDOWN ===== */
 const weddingDate = new Date("2026-06-07T17:00:00");
