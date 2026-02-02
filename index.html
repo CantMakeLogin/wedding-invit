@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Приглашение на свадьбу</title>
+  <title>Wedding Invitation</title>
+
   <style>
     :root {
       --bg: #faf7f2;
@@ -10,33 +11,80 @@
       --text: #333;
       --accent: #c59d5f;
     }
+
     body.dark {
       --bg: #111;
       --card: #1c1c1c;
       --text: #eee;
       --accent: #d4af37;
     }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: "Georgia", serif;
       background: var(--bg);
       color: var(--text);
+      transition: background 0.4s, color 0.4s;
+      scroll-behavior: smooth;
+    }
+
+    section {
       min-height: 100vh;
+      padding: 60px 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.5s;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.8s ease;
     }
+
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* HERO */
+    .hero {
+      background: url("hero.jpg") center / cover no-repeat;
+      position: relative;
+      color: white;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: normal;
+    }
+
+    .hero p {
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    /* CARD */
     .card {
       background: var(--card);
       padding: 40px;
       border-radius: 20px;
       width: 340px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,.1);
-      animation: fadeUp 1s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
     }
-    h1 { margin-bottom: 10px; font-weight: normal; }
+
     input[type="text"] {
       width: 100%;
       padding: 12px;
@@ -45,8 +93,17 @@
       border: 1px solid #ccc;
       font-size: 16px;
     }
-    label { display: block; margin: 8px 0; font-size: 16px; cursor: pointer; }
-    input[type="radio"] { margin-right: 8px; }
+
+    label {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
     button {
       width: 100%;
       padding: 12px;
@@ -58,75 +115,197 @@
       background: var(--accent);
       color: white;
     }
-    .secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-    .controls { display: flex; gap: 10px; margin-top: 15px; justify-content: center; }
-    #status { margin-top: 15px; font-weight: bold; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    #status {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    /* TOP CONTROLS */
+    .top-controls {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      gap: 10px;
+      z-index: 1000;
     }
   </style>
 </head>
+
 <body>
 
-<!-- Форма -->
-<form
-  class="card"
-  action="https://docs.google.com/forms/d/e/1FAIpQLSccODtGesRZ3y7xKMyRZOgsM7ydOg141pDamm0DrTNnnmtFyw/formResponse"
-  method="POST"
-  target="hidden_iframe"
-  onsubmit="submitted()"
->
-  <h1>Приглашение</h1>
-  <p>Будем рады видеть вас 💍</p>
+<div class="top-controls">
+  <button class="secondary" onclick="toggleLang()">🌍</button>
+  <button class="secondary" onclick="toggleTheme()">🎭</button>
+</div>
 
-  <input type="text" name="entry.1517386619" placeholder="Ваше имя" required>
-
-  <label>
-    <input type="radio" name="entry.1950913670" value="Да" required> Приду
-  </label>
-  <label>
-    <input type="radio" name="entry.1950913670" value="Нет"> Не смогу
-  </label>
-
-  <button type="submit">Отправить</button>
-
-  <div class="controls">
-    <button type="button" class="secondary" onclick="toggleTheme()">🎭 Тема</button>
-    <button type="button" class="secondary" onclick="toggleMusic()">🎵 Музыка</button>
+<section class="hero">
+  <div class="hero-content">
+    <h1 data-ru="Наша свадьба" data-en="Our Wedding"></h1>
+    <p data-ru="7 июня 2026" data-en="June 7, 2026"></p>
   </div>
+</section>
 
-  <p id="status"></p>
-</form>
+<section>
+  <div class="card">
+    <h1 data-ru="Приглашение" data-en="Invitation"></h1>
+    <p data-ru="Будем рады разделить этот день вместе с вами 💍"
+       data-en="We would be honored to celebrate this day with you 💍"></p>
+  </div>
+</section>
 
-<!-- Скрытый iframe для отправки -->
+<section>
+  <div class="card">
+    <h1 data-ru="Место и время" data-en="Venue & Time"></h1>
+    <p data-ru="🕒 17:00" data-en="🕒 5:00 PM"></p>
+    <p data-ru="📍 Талгарская трасса ХАН СУЛТАН, Алматы"
+       data-en="📍 Talgar highway KHAN SULTAN, Almaty"></p>
+    <button onclick="openMap()" data-ru="Открыть на карте" data-en="Open in Maps"></button>
+  </div>
+</section>
+
+<section>
+  <form
+    class="card"
+    action="https://docs.google.com/forms/d/e/1FAIpQLSccODtGesRZ3y7xKMyRZOgsM7ydOg141pDamm0DrTNnnmtFyw/formResponse"
+    method="POST"
+    target="hidden_iframe"
+    onsubmit="submitted()"
+  >
+    <h1 data-ru="Вы придёте?" data-en="Will you attend?"></h1>
+
+    <input type="text"
+      name="entry.1517386619"
+      data-ru-placeholder="Ваше имя"
+      data-en-placeholder="Your name"
+      required>
+
+    <label>
+      <input type="radio" name="entry.1950913670" value="Да" required>
+      <span data-ru="Приду" data-en="I will come"></span>
+    </label>
+
+    <label>
+      <input type="radio" name="entry.1950913670" value="Нет">
+      <span data-ru="Не смогу" data-en="Can't come"></span>
+    </label>
+
+    <button type="submit" data-ru="Отправить" data-en="Submit"></button>
+    <button type="button" class="secondary" onclick="toggleMusic()">🎵</button>
+
+    <p id="status"></p>
+  </form>
+</section>
+
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
-<!-- Музыка -->
 <audio id="music" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// Сообщение после отправки
-function submitted() {
-  document.getElementById("status").innerText = "Спасибо за ответ ❤️";
+/* ===== SCROLL ANIMATION ===== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
+}, { threshold: 0.2 });
+
+document.querySelectorAll("section").forEach(s => observer.observe(s));
+
+/* ===== LANGUAGE ===== */
+let lang = "ru";
+
+function applyLang() {
+  document.querySelectorAll("[data-ru]").forEach(el => {
+    el.innerText = el.dataset[lang];
+  });
+
+  document.querySelectorAll("[data-ru-placeholder]").forEach(el => {
+    el.placeholder = el.dataset[lang + "Placeholder"];
+  });
 }
 
-// Переключение темы
+function toggleLang() {
+  lang = lang === "ru" ? "en" : "ru";
+  applyLang();
+}
+
+/* ===== FORM ===== */
+function submitted() {
+  document.getElementById("status").innerText =
+    lang === "ru" ? "Спасибо за ответ ❤️" : "Thank you for your response ❤️";
+}
+
+/* ===== THEME ===== */
 function toggleTheme() {
   document.body.classList.toggle("dark");
 }
 
-// Музыка
-let playing = false;
+/* ===== MUSIC ===== */
+/* ===== SAFE AUTOPLAY MUSIC ===== */
 const music = document.getElementById("music");
+let playing = false;
+let userInteracted = false;
+
+// Try autoplay silently
+function tryAutoplay() {
+  music.volume = 0.5;
+  const playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        playing = true;
+      })
+      .catch(() => {
+        // Autoplay blocked — wait for interaction
+      });
+  }
+}
+
+// Start music after first interaction
+function enableMusic() {
+  if (userInteracted) return;
+  userInteracted = true;
+  music.play();
+  playing = true;
+
+  document.removeEventListener("click", enableMusic);
+  document.removeEventListener("scroll", enableMusic);
+  document.removeEventListener("touchstart", enableMusic);
+}
+
+// Manual toggle button
 function toggleMusic() {
-  if (!playing) music.play();
-  else music.pause();
-  playing = !playing;
+  if (playing) {
+    music.pause();
+  } else {
+    music.play();
+  }
   playing = !playing;
 }
+
+// Listen for user interaction
+document.addEventListener("click", enableMusic);
+document.addEventListener("scroll", enableMusic);
+document.addEventListener("touchstart", enableMusic);
+
+// Attempt autoplay on load
+window.addEventListener("load", tryAutoplay);
+
+/* ===== MAP ===== */
+function openMap() {
+  window.open("https://www.google.com/maps?q=43.238949,76.889709", "_blank");
+}
+
+/* INIT */
+applyLang();
 </script>
 
 </body>
